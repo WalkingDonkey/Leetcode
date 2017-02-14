@@ -1,0 +1,17 @@
+###############
+#    folder   #
+###############
+.vs/
+**/bin/
+**/obj/
+**/TestResults
+
+###############
+#  temp file  #
+###############
+*.tmp
+*.vsprops
+*.suo
+*.user
+*.exe
+*.pdb
