@@ -50,12 +50,14 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="DataStructures\FourSumTests.cs" />
+    <Compile Include="Algorithms\FourSumCountTests.cs" />
+    <Compile Include="Algorithms\ThreeSumNestedTests.cs" />
+    <Compile Include="Algorithms\TwoSumTests.cs" />
     <Compile Include="DataStructures\TwoSumTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Algorithms\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\Interview\Interview.csproj">
       <Project>{f7ae6b31-f55f-4dd8-a1d8-533b7b1bc3cf}</Project>

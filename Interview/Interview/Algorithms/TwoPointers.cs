@@ -2,10 +2,61 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
 
     public class TwoPointers
     {
-        public IList<IList<int>> ThreeSum(int[] nums)
+        public IList<IList<int>> TwoSum(int[] nums, int target)
+        {
+            Array.Sort(nums);
+
+            return TwoSumCore(nums, 0, nums.Length - 1, target);
+        }
+
+        private IList<IList<int>> TwoSumCore(int[] nums, int l, int r, int target, int[] prefixElements = null)
+        {
+            var result = new List<IList<int>>();
+
+            while (l < r)
+            {
+                var sum = nums[l] + nums[r];
+                if (sum == target)
+                {
+                    if (prefixElements != null)
+                    {
+                        result.Add(prefixElements.Concat(new int[] { nums[l], nums[r] }).ToList());
+                    }
+                    else
+                    {
+                        result.Add(new int[] { nums[l], nums[r] });
+                    }
+
+                    l++;
+                    while (l < r && nums[l] == nums[l - 1])
+                    {
+                        l++;
+                    }
+
+                    r--;
+                    while (l < r && nums[r] == nums[r + 1])
+                    {
+                        r--;
+                    }
+                }
+                else if (sum < target)
+                {
+                    l++;
+                }
+                else
+                {
+                    r--;
+                }
+            }
+
+            return result;
+        }
+
+        public IList<IList<int>> ThreeSum(int[] nums, int target)
         {
             var result = new List<IList<int>>();
 
@@ -18,7 +69,7 @@
                 while (j < k)
                 {
                     var sum = nums[i] + nums[j] + nums[k];
-                    if (sum == 0)
+                    if (sum == target)
                     {
                         result.Add(new List<int> { nums[i], nums[j], nums[k] });
 
@@ -34,7 +85,7 @@
                             k--;
                         }
                     }
-                    else if (sum < 0)
+                    else if (sum < target)
                     {
                         j++;
                     }
@@ -45,6 +96,60 @@
                 }
 
                 while (i < nums.Length - 1 && nums[i] == nums[i+1])
+                {
+                    i++;
+                }
+            }
+
+            return result;
+        }
+
+        public IList<IList<int>> ThreeSumNested(int[] nums, int target)
+        {
+            Array.Sort(nums);
+
+            return ThreeSumCore(nums, 0, nums.Length - 1, target, int.MinValue);
+        }
+
+        private IList<IList<int>> ThreeSumCore(int[] nums, int l, int r, int target, int prefixElement = int.MinValue)
+        {
+            var result = new List<IList<int>>();
+
+            for (var i = l; i < r - 1; i++)
+            {
+                int[] prefixElements;
+                if (prefixElement != int.MinValue)
+                {
+                    prefixElements = new int[] { prefixElement, nums[i] };
+                }
+                else
+                {
+                    prefixElements = new int[] { nums[i] };
+                }
+                var partOfResult = TwoSumCore(nums, i + 1, r, target - nums[i], prefixElements);
+                result.AddRange(partOfResult);
+
+                while (i < nums.Length - 1 && nums[i] == nums[i + 1])
+                {
+                    i++;
+                }
+            }
+
+            return result;
+        }
+
+        public IList<IList<int>> FourSumNested(int[] nums, int target)
+        {
+            var result = new List<IList<int>>();
+
+            Array.Sort(nums);
+
+            for(var i = 0; i < nums.Length - 3; i++)
+            {
+                var partOfResult = ThreeSumCore(nums, i + 1, nums.Length - 1, target - nums[i], nums[i]);
+                result.AddRange(partOfResult);
+
+                while (i < nums.Length - 1 && nums[i] == nums[i + 1])
                 {
                     i++;
                 }
@@ -135,6 +240,66 @@
             }
 
             return minDiff;
+        }
+
+        public int FourSumCount_Bruce(int[] A, int[] B, int[] C, int[] D)
+        {
+            Array.Sort(A);
+            Array.Sort(B);
+            Array.Sort(C);
+            Array.Sort(D);
+
+            var count = 0;
+
+            for (var i = 0; i < A.Length; i++)
+            {
+                var countB = 0;
+                for (var j = 0; j < B.Length; j++)
+                {
+                    var countC = 0;
+                    for (var k = 0; k < C.Length; k++)
+                    {
+                        var countD = 0;
+                        for (var l = 0; l < D.Length; l++)
+                        {
+                            var sum = A[i] + B[j] + C[k] + D[l];
+                            if (sum == 0)
+                            {
+                                countD++;
+
+                                while (l < D.Length - 1 && D[l] == D[l + 1])
+                                {
+                                    l++;
+                                    countD++;
+                                }
+                            }
+                        }
+
+                        countC += countD;
+                        while (k < C.Length - 1 && C[k] == C[k + 1])
+                        {
+                            k++;
+                            countC += countD;
+                        }
+                    }
+
+                    countB += countC;
+                    while (j < B.Length - 1 && B[j] == B[j + 1])
+                    {
+                        j++;
+                        countB += countC;
+                    }
+                }
+
+                count += countB;
+                while (i < A.Length - 1 && A[i] == A[i + 1])
+                {
+                    i++;
+                    count += countB;
+                }
+            }
+
+            return count;
         }
     }
 }
