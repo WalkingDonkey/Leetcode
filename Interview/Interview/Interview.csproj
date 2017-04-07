@@ -46,9 +46,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Algorithms\BinarySearch.cs" />
+    <Compile Include="Algorithms\DynamicProgramming.cs" />
+    <Compile Include="Algorithms\Mathematics.cs" />
     <Compile Include="Algorithms\TwoPointers.cs" />
     <Compile Include="DataStructures\HashTable.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Utilities\IEnumerableExtensions.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

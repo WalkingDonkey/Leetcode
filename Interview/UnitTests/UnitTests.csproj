@@ -50,6 +50,8 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="Algorithms\ArrangeCoinsTests.cs" />
+    <Compile Include="Algorithms\CoinChangeTests.cs" />
     <Compile Include="DataStructures\FourSumTests.cs" />
     <Compile Include="Algorithms\FourSumCountTests.cs" />
     <Compile Include="Algorithms\ThreeSumNestedTests.cs" />

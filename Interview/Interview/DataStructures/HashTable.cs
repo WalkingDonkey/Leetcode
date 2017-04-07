@@ -1,9 +1,9 @@
 ﻿namespace Interview.DataStructures
 {
-    using System;
     using System.Collections.Generic;
-    using System.IO;
     using System.Linq;
+
+    using Interview.Utilities;
 
     public class HashTable
     {
@@ -12,13 +12,22 @@
             var valueToIndexMap = new Dictionary<int, int>();
             for (int i = 0; i < nums.Length; i++)
             {
-                if (valueToIndexMap.ContainsKey(nums[i]))
+                //if (valueToIndexMap.ContainsKey(nums[i]))
+                //{
+                //    return new int[] { valueToIndexMap[nums[i]], i };
+                //}
+                //else
+                //{
+                //    valueToIndexMap[target - nums[i]] = i;
+                //}
+
+                if (valueToIndexMap.ContainsKey(target - nums[i]))
                 {
-                    return new int[] { valueToIndexMap[nums[i]], i };
+                    return new int[] { valueToIndexMap[target - nums[i]], i };
                 }
                 else
                 {
-                    valueToIndexMap[target - nums[i]] = i;
+                    valueToIndexMap[nums[i]] = i;
                 }
             }
 
@@ -29,42 +38,50 @@
         {
             var result = new List<IList<int>>();
 
-            var sumToNumsPairMap = new Dictionary<int, List<Tuple<int, int>>>();
+            if (nums.Sum() == target)
+            {
+                result.Add(nums);
+                return result;
+            }
+
+            var sumToNumsPairMap = new Dictionary<int, List<IList<int>>>();
             for (int i = 0; i < nums.Length; i++)
             {
                 for (int j = i + 1; j < nums.Length; j++)
                 {
                     var sum = nums[i] + nums[j];
-                    var numsPair = new Tuple<int, int>(nums[i], nums[j]);
+                    var numsPair = new List<int> { nums[i], nums[j] };
+                    numsPair.Sort();
                     if (sumToNumsPairMap.ContainsKey(sum))
                     {
                         var numsPairList = sumToNumsPairMap[sum];
-                        if (!numsPairList.Contains(numsPair))
+                        if (!numsPairList.Exists(element => element.SequenceEqual(numsPair)))
                         {
                             numsPairList.Add(numsPair);
                         }
                     }
                     else
                     {
-                        var numsPairList = new List<Tuple<int, int>> { numsPair };
+                        var numsPairList = new List<IList<int>> { numsPair };
                         sumToNumsPairMap[sum] = numsPairList;
                     }
                 }
             }
 
-            var sb = StringBuilder();
+            var buffer = string.Empty;
             foreach (var keyPairValue in sumToNumsPairMap)
             {
                 var partSum = keyPairValue.Key;
                 var partSets = keyPairValue.Value;
-                File.wr($"hash is {partSum}");
+                buffer += ($"hash is {partSum}\n");
                 foreach (var partSet in partSets)
                 {
-                    Console.WriteLine($"{partSet.Item1}, {partSet.Item2}");
+                    buffer += ($"{partSet[0]}, {partSet[1]}\n");
                 }
             }
 
-            var valueToNumsMap = new Dictionary<int, List<Tuple<int, int>>>();
+            var buffer1 = string.Empty;
+            var valueToNumsMap = new Dictionary<int, List<IList<int>>>();
             foreach (var keyPairValue in sumToNumsPairMap)
             {
                 var partSum = keyPairValue.Key;
@@ -77,9 +94,13 @@
                     {
                         foreach (var leftSet in leftSets)
                         {
-                            var set = new List<int> { partSet.Item1, partSet.Item2, leftSet.Item1, leftSet.Item2 };
-                            Console.WriteLine($"{partSet.Item1}, {partSet.Item2}, {leftSet.Item1}, {leftSet.Item2}");
-                            result.Add(set);
+                            var set = new List<int> { partSet[0], partSet[1], leftSet[0], leftSet[1] };
+                            set.Sort();
+                            buffer1 += ($"{partSet[0]}, {partSet[1]}, {leftSet[0]}, {leftSet[1]}\n");
+                            if (set.IsSubsetOf(nums) && !result.Exists(element => element.SequenceEqual(set)))
+                            {
+                                result.Add(set);
+                            }
                         }
                     }
                 }
