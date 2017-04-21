@@ -140,12 +140,50 @@
 
         public ListNode MergeTwoSortedLists(ListNode l1, ListNode l2)
         {
+            var dummy = new ListNode(0);
+            var merged = dummy;
             var h1 = l1;
             var h2 = l2;
             while (h1 != null && h2 != null)
             {
-
+                if (h1.val < h2.val)
+                {
+                    merged.next = h1;
+                    h1 = h1.next;
+                }
+                else
+                {
+                    merged.next = h2;
+                    h2 = h2.next;
+                }
+                merged = merged.next;
             }
+
+            while (h1 != null)
+            {
+                merged.next = h1;
+                h1 = h1.next;
+                merged = merged.next;
+            }
+
+            while (h2 != null)
+            {
+                merged.next = h2;
+                h2 = h2.next;
+                merged = merged.next;
+            }
+
+            //if (h1 != null)
+            //{
+            //    merged.next = h1;
+            //}
+
+            //if (h2 != null)
+            //{
+            //    merged.next = h2;
+            //}
+
+            return dummy.next;
         }
     }
 }
