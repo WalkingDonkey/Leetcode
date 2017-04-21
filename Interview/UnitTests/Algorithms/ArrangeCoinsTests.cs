@@ -1,7 +1,8 @@
 ﻿namespace UnitTests.Algorithms
 {
-    using Interview.Algorithms;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
+
+    using Interview.Algorithms;
 
     [TestClass]
     public class ArrangeCoinsTests

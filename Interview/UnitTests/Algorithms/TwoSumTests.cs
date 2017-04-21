@@ -1,8 +1,9 @@
 ﻿namespace UnitTests.Algorithms
 {
-    using Interview.Algorithms;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using System.Linq;
+
+    using Interview.Algorithms;
 
     [TestClass]
     public class TwoSumTests

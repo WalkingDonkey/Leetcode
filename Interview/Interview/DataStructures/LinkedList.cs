@@ -137,5 +137,15 @@
 
             return head;
         }
+
+        public ListNode MergeTwoSortedLists(ListNode l1, ListNode l2)
+        {
+            var h1 = l1;
+            var h2 = l2;
+            while (h1 != null && h2 != null)
+            {
+
+            }
+        }
     }
 }

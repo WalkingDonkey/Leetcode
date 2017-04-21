@@ -50,6 +50,8 @@
     <Compile Include="Algorithms\DynamicProgramming.cs" />
     <Compile Include="Algorithms\Mathematics.cs" />
     <Compile Include="Algorithms\Recursive.cs" />
+    <Compile Include="DataStructures\Array.cs" />
+    <Compile Include="DataStructures\Stack.cs" />
     <Compile Include="Algorithms\TwoPointers.cs" />
     <Compile Include="DataStructures\HashTable.cs" />
     <Compile Include="DataStructures\LinkedList.cs" />

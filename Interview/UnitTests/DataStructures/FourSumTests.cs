@@ -1,10 +1,8 @@
-﻿namespace UnitTests.Algorithms
+﻿namespace UnitTests.DataStructures
 {
-    using Interview.DataStructures;
-    using Interview.Utilities;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
-    using System.Collections.Generic;
-    using System.Linq;
+
+    using Interview.DataStructures;
 
     [TestClass]
     public class FourSumTests

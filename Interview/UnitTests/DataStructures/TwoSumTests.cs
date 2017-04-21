@@ -1,7 +1,8 @@
 ﻿namespace UnitTests.DataStructures
 {
-    using Interview.DataStructures;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
+
+    using Interview.DataStructures;
 
     [TestClass]
     public class TwoSumTests

@@ -1,8 +1,9 @@
 ﻿namespace UnitTests.Algorithms
 {
-    using Interview.Algorithms;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using System;
+
+    using Interview.Algorithms;
 
     [TestClass]
     public class CoinChangeTests
@@ -33,7 +34,7 @@
         [ExpectedException(typeof(ArgumentException), "n should not be less than zero.")]
         public void CoinChange_NegativeValue_ThrowException()
         {
-            var actual = dp.CoinChange(-1);
+            dp.CoinChange(-1);
         }
     }
 }
