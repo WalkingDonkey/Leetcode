@@ -3,6 +3,8 @@
     using System;
     using System.Text;
 
+    using Interview.DataStructures;
+
     using SysArray = System.Array;
 
     public class Mathematics
@@ -49,6 +51,10 @@
             return count;
         }
 
+        public ListNode AddTwoNumbers(ListNode l1, ListNode l2)
+        {
+
+        }
         // Given two binary strings, return their sum(also a binary string).
         // For example,
         // a = "11"
@@ -154,6 +160,9 @@
             }
 
             var result = new int[digits.Length + 1];
+            result[0] = 1;
+
+            return result;
         }
     }
 }
