@@ -142,5 +142,46 @@
 
             return maxApples[row - 1, column - 1];
         }
+
+        public string LongestPalindrome(string s)
+        {
+            if (string.IsNullOrEmpty(s))
+            {
+                return s;
+            }
+
+            int longestBegin = 0, maxLength = 1;
+            bool[,] isPalindrome = new bool[s.Length, s.Length];
+            for (var i = 0; i < s.Length; i++)
+            {
+                isPalindrome[i, i] = true;
+            }
+
+            for (var i = 0; i < s.Length - 1; i++)
+            {
+                if (s[i] == s[i + 1])
+                {
+                    isPalindrome[i, i + 1] = true;
+                    longestBegin = i;
+                    maxLength = 2;
+                }
+            }
+
+            for (var length = 3; length <= s.Length; length++)
+            {
+                for (var i = 0; i < s.Length - length + 1; i++)
+                {
+                    var j = i + length - 1;
+                    if (isPalindrome[i + 1, j - 1] && s[i] == s[j])
+                    {
+                        isPalindrome[i, j] = true;
+                        longestBegin = i;
+                        maxLength = length;
+                    }
+                }
+            }
+
+            return s.Substring(longestBegin, maxLength);
+        }
     }
 }

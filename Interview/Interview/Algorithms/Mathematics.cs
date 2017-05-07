@@ -1,6 +1,7 @@
 ﻿namespace Interview.Algorithms
 {
     using System;
+    using System.Collections.Generic;
     using System.Text;
 
     using Interview.DataStructures;
@@ -51,10 +52,100 @@
             return count;
         }
 
+        // You are given two non-empty linked lists representing two non-negative integers.The digits are stored in reverse order and each of their nodes contain a single digit.Add the two numbers and return it as a linked list.
+        // You may assume the two numbers do not contain any leading zero, except the number 0 itself.
+        // Input: (2 -> 4 -> 3) + (5 -> 6 -> 4)
+        // Output: 7 -> 0 -> 8
         public ListNode AddTwoNumbers(ListNode l1, ListNode l2)
         {
+            var carry = 0;
+            var dummy = new ListNode(0);
+            ListNode p1 = l1, p2 = l2, p3 = dummy;
+            while(p1 != null || p2 != null)
+            {
+                if (p1 != null)
+                {
+                    carry += p1.val;
+                    p1 = p1.next;
+                }
 
+                if (p2 != null)
+                {
+                    carry += p2.val;
+                    p2 = p2.next;
+                }
+
+                p3.next = new ListNode(carry % 10);
+                p3 = p3.next;
+                carry /= 10;   
+            }
+
+            if (carry == 1)
+            {
+                p3.next = new ListNode(1);
+            }
+
+            return dummy.next;
         }
+
+        // You are given two non-empty linked lists representing two non-negative integers.The most significant digit comes first and each of their nodes contain a single digit. Add the two numbers and return it as a linked list.
+        // You may assume the two numbers do not contain any leading zero, except the number 0 itself.
+        // Follow up:
+        // What if you cannot modify the input lists? In other words, reversing the lists is not allowed.
+        // Example:
+        // Input: (7 -> 2 -> 4 -> 3) + (5 -> 6 -> 4)
+        // Output: 7 -> 8 -> 0 -> 7
+        // Another solution: reverse the input lists first.
+        public ListNode AddTwoNumbersUsingStack(ListNode l1, ListNode l2)
+        {
+            var s1 = new Stack<int>();
+            var s2 = new Stack<int>();
+
+            var p1 = l1;
+            while (p1 != null)
+            {
+                s1.Push(p1.val);
+                p1 = p1.next;
+            }
+
+            var p2 = l2;
+            while (p2 != null)
+            {
+                s2.Push(p2.val);
+                p2 = p2.next;
+            }
+
+            var carry = 0;
+            var dummy = new ListNode(0);
+            var p3 = dummy;
+            while (s1.Count > 0 || s2.Count > 0)
+            {
+                if (s1.Count > 0)
+                {
+                    carry += s1.Pop();
+                }
+
+                if (s2.Count > 0)
+                {
+                    carry += s2.Pop();
+                }
+
+                var temp = new ListNode(carry % 10);
+                temp.next = dummy.next;
+                dummy.next = temp;
+                carry /= 10;
+            }
+
+            if (carry == 1)
+            {
+                var temp = new ListNode(1);
+                temp.next = dummy.next;
+                dummy.next = temp;
+            }
+
+            return dummy.next;
+        }
+
         // Given two binary strings, return their sum(also a binary string).
         // For example,
         // a = "11"
