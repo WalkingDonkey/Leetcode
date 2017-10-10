@@ -255,5 +255,109 @@
 
             return result;
         }
+
+        // Reverse digits of an integer.
+        // Example1: x = 123, return 321
+        // Example2: x = -123, return -321
+        // The input is assumed to be a 32-bit signed integer. Your function should return 0 when the reversed integer overflows.
+        public int Reverse(int x)
+        {
+            var isNegative = false;
+            if (x < 0)
+            {
+                isNegative = true;
+                x *= -1;
+            }
+
+            var result = 0;
+            try
+            {
+                while (x > 0)
+                {
+                    result = checked(result * 10 + x % 10);
+                    x /= 10;
+                }
+            }
+            catch (Exception)
+            {
+                return 0;
+            }
+
+            return isNegative ? result * -1 : result;
+        }
+
+        // Implement atoi to convert a string to an integer.
+        public int MyAtoi(string str)
+        {
+            if (string.IsNullOrWhiteSpace(str))
+            {
+                return 0;
+            }
+
+            var isNegative = false;
+            var index = 0;
+            double result = 0;
+
+            str = str.Trim();
+            var sign = str[index];
+            if (sign == '-')
+            {
+                isNegative = true;
+                index++;
+            }
+            else if (sign == '+')
+            {
+                index++;
+            }
+
+            while (index < str.Length && str[index] >= '0' && str[index] <= '9')
+            {
+                result = result * 10 + str[index] - '0';
+                index++;
+            }
+
+            result = isNegative? result *-1 : result;
+
+            if (result < int.MinValue)
+            {
+                return int.MinValue;
+            }
+            else if (result > int.MaxValue)
+            {
+                return int.MaxValue;
+            }
+
+            return (int)result;
+        }
+
+        // Determine whether an integer is a palindrome. Do this without extra space.
+        public bool IsPalindrome(int x)
+        {
+            if (x < 0)
+            {
+                return false;
+            }
+
+            var div = 1;
+            while (x / div >= 10)
+            {
+                div *= 10;
+            }
+
+            while (x > 0)
+            {
+                var l = x / div;
+                var r = x % 10;
+                if (l != r)
+                {
+                    return false;
+                }
+
+                x = (x % div) / 10;
+                div /= 100;
+            }
+
+            return true;
+        }
     }
 }
