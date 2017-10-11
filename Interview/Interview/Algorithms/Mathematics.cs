@@ -61,7 +61,7 @@
             var carry = 0;
             var dummy = new ListNode(0);
             ListNode p1 = l1, p2 = l2, p3 = dummy;
-            while(p1 != null || p2 != null)
+            while (p1 != null || p2 != null)
             {
                 if (p1 != null)
                 {
@@ -77,7 +77,7 @@
 
                 p3.next = new ListNode(carry % 10);
                 p3 = p3.next;
-                carry /= 10;   
+                carry /= 10;
             }
 
             if (carry == 1)
@@ -316,7 +316,7 @@
                 index++;
             }
 
-            result = isNegative? result *-1 : result;
+            result = isNegative ? result * -1 : result;
 
             if (result < int.MinValue)
             {
@@ -358,6 +358,43 @@
             }
 
             return true;
+        }
+
+        // Given a roman numeral, convert it to an integer.
+        // Input is guaranteed to be within the range from 1 to 3999.
+        public int RomanToInt(string s)
+        {
+            if (string.IsNullOrEmpty(s))
+            {
+                return 0;
+            }
+
+            Dictionary<char, int> intByRoman = new Dictionary<char, int>
+            {
+                { 'I', 1},
+                {'V', 5},
+                {'X', 10},
+                {'L', 50},
+                {'C', 100},
+                {'D', 500},
+                {'M', 1000}
+            };
+
+            var index = s.Length - 1;
+            var sum = intByRoman[s[index]];
+            while (index > 0)
+            {
+                if (intByRoman[s[index - 1]] < intByRoman[s[index]])
+                {
+                    sum -= intByRoman[s[--index]];
+                }
+                else
+                {
+                    sum += intByRoman[s[--index]];
+                }
+            }
+
+            return sum;
         }
     }
 }

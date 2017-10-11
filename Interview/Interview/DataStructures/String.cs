@@ -123,5 +123,33 @@ namespace Interview.DataStructures
 
             return s.Substring(l + 1, r - l - 1);
         }
+
+        // Write a function to find the longest common prefix string amongst an array of strings.
+        public string LongestCommonPrefix(string[] strs)
+        {
+            if (strs == null || strs.Length == 0)
+            {
+                return string.Empty;
+            }
+
+            var initStr = strs[0];
+            var maxLength = initStr.Length;
+            for (var i = 1; i < strs.Length; i++)
+            {
+                var str = strs[i];
+                var j = 0;
+                for (; j < maxLength && j < str.Length; j++)
+                {
+                    if (str[j] != initStr[j])
+                    {
+                        break;
+                    }
+                }
+
+                maxLength = j;
+            }
+
+            return initStr.Substring(0, maxLength);
+        }
     }
 }

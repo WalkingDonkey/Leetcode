@@ -332,5 +332,35 @@
 
             return maxLength;
         }
+
+        // Given n non-negative integers a1, a2, ..., an, where each represents a point at coordinate (i, ai).
+        // n vertical lines are drawn such that the two endpoints of line i is at (i, ai) and (i, 0). 
+        // Find two lines, which together with x-axis forms a container, such that the container contains the most water.
+        // Note: You may not slant the container and n is at least 2.
+        public int MaxArea(int[] height)
+        {
+            var maxArea = 0;
+            if (height == null || height.Length == 0)
+            {
+                return maxArea;
+            }
+
+            int l = 0, r = height.Length - 1;
+            while (l < r)
+            {
+                var area = (r - l) * Math.Min(height[l], height[r]);
+                maxArea = Math.Max(maxArea, area);
+                if (height[l] < height[r])
+                {
+                    l++;
+                }
+                else
+                {
+                    r--;
+                }
+            }
+
+            return maxArea;
+        }
     }
 }
