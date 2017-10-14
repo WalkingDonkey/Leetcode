@@ -1,6 +1,8 @@
 ﻿namespace Interview.DataStructures
 {
+    using System;
     using System.Collections.Generic;
+    using System.Linq;
     using System.Text;
 
     public class Stack
@@ -115,6 +117,49 @@
             }
 
             return stack.Peek();
+        }
+
+        // Given a string containing just the characters '(', ')', '{', '}', '[' and ']', determine if the input string is valid.
+        // The brackets must close in the correct order, "()" and "()[]{}" are all valid but "(]" and "([)]" are not.
+        public bool IsValid(string s)
+        {
+            if (string.IsNullOrEmpty(s))
+            {
+                return true;
+            }
+
+            var ParenthesesMap = new Dictionary<char, char>
+            {
+                { '(', ')' },
+                { '[', ']' },
+                { '{', '}' }
+            };
+
+            var stack = new Stack<char>();
+            foreach (var c in s)
+            {
+                if (ParenthesesMap.ContainsKey(c))
+                {
+                    stack.Push(c);
+                }
+                else if (ParenthesesMap.ContainsValue(c))
+                {
+                    if (stack.Any() && ParenthesesMap[stack.Peek()] == c)
+                    {
+                        stack.Pop();
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+                else
+                {
+                    throw new Exception($"character {c} is not supported.");
+                }
+            }
+
+            return !stack.Any();
         }
     }
 }
