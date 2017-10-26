@@ -46,6 +46,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Algorithms\Backtracking.cs" />
     <Compile Include="Algorithms\BinarySearch.cs" />
     <Compile Include="Algorithms\DynamicProgramming.cs" />
     <Compile Include="Algorithms\Mathematics.cs" />

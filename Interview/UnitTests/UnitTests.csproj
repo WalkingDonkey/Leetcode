@@ -50,6 +50,7 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="Algorithms\GenerateParenthesisTests.cs" />
     <Compile Include="Algorithms\ArrangeCoinsTests.cs" />
     <Compile Include="Algorithms\CoinChangeTests.cs" />
     <Compile Include="DataStructures\MergeTwoSortedArraysTests.cs" />
