@@ -64,22 +64,22 @@ namespace Interview.Algorithms
             return result;
         }
 
-        private long LDivide(long ldividend, long ldivisor)
+        private long LDivide(long lDividend, long lDivisor)
         {
-            if (ldividend < ldivisor)
+            if (lDividend < lDivisor)
             {
                 return 0;
             }
 
-            var sum = ldivisor;
+            var sum = lDivisor;
             var multiple = 1;
-            while (sum + sum < ldividend)
+            while (sum + sum < lDividend)
             {
                 sum += sum;
                 multiple += multiple;
             }
 
-            return multiple + LDivide(ldividend - sum, ldivisor);
+            return multiple + LDivide(lDividend - sum, lDivisor);
         }
     }
 }
