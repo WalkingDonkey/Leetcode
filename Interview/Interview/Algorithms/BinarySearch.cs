@@ -1,4 +1,6 @@
-﻿namespace Interview.Algorithms
+﻿using System;
+
+namespace Interview.Algorithms
 {
     public class BinarySearch
     {
@@ -24,6 +26,60 @@
             }
 
             return start - 1;
+        }
+
+        //Divide two integers without using multiplication, division and mod operator.
+        //If it is overflow, return MAX_INT.
+        public int Divide(int dividend, int divisor)
+        {
+            var isNegative = false;
+            if ((dividend < 0 && divisor > 0) || (dividend > 0 && divisor < 0))
+            {
+                isNegative = true;
+            }
+
+            var lDividend = Math.Abs((long)dividend);
+            var lDivisor = Math.Abs((long)divisor);
+            if (lDivisor == 0)
+            {
+                return int.MaxValue;
+            }
+
+            if (lDividend < lDivisor)
+            {
+                return 0;
+            }
+
+            var lResult = LDivide(lDividend, lDivisor);
+            int result;
+            if (lResult > int.MaxValue)
+            {
+                result = isNegative ? int.MinValue : int.MaxValue;
+            }
+            else
+            {
+                result = isNegative ? (int)(-1 * lResult) : (int)lResult;
+            }
+
+            return result;
+        }
+
+        private long LDivide(long ldividend, long ldivisor)
+        {
+            if (ldividend < ldivisor)
+            {
+                return 0;
+            }
+
+            var sum = ldivisor;
+            var multiple = 1;
+            while (sum + sum < ldividend)
+            {
+                sum += sum;
+                multiple += multiple;
+            }
+
+            return multiple + LDivide(ldividend - sum, ldivisor);
         }
     }
 }

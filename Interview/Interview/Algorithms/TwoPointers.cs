@@ -4,6 +4,8 @@
     using System.Collections.Generic;
     using System.Linq;
 
+    using Interview.Utilities;
+
     using ListNode = Interview.DataStructures.ListNode;
 
     public class TwoPointers
@@ -399,6 +401,83 @@
             walker.next = walker.next.next;
 
             return head;
+        }
+
+        //Given a linked list, swap every two adjacent nodes and return its head.
+        //For example,
+        //Given 1->2->3->4, you should return the list as 2->1->4->3.
+        //Your algorithm should use only constant space.You may not modify the values in the list, only nodes itself can be changed.
+        public ListNode SwapPairs(ListNode head)
+        {
+            if (head == null || head.next == null)
+            {
+                return head;
+            }
+
+            var dummy = new ListNode(0);
+            dummy.next = head;
+            var p = dummy;
+            while (p.next != null && p.next.next != null)
+            {
+                var t1 = p;
+                p = p.next;
+                t1.next = p.next;
+
+                var t2 = p.next.next;
+                p.next.next = p;
+                p.next = t2;
+            }
+
+            return dummy.next;
+        }
+
+        //Given an array and a value, remove all instances of that value in place and return the new length.
+        //Do not allocate extra space for another array, you must do this in place with constant memory.
+        //The order of elements can be changed. It doesn't matter what you leave beyond the new length.
+        //Example:
+        //Given input array nums = [3, 2, 2, 3], val = 3
+        //Your function should return length = 2, with the first two elements of nums being 2.
+        public int RemoveElement(int[] nums, int val)
+        {
+            Guard.ArgumentNotNull(nums, nameof(nums));
+
+            int i = 0, j = 0;
+            while (j < nums.Length)
+            {
+                if (nums[j] != val)
+                {
+                    nums[i] = nums[j];
+                    i++;
+                }
+                j++;
+            }
+
+            return i;
+        }
+
+        //Returns the index of the first occurrence of needle in haystack, or -1 if needle is not part of haystack.
+        public int StrStr(string haystack, string needle)
+        {
+            for (var i = 0; ; i++)
+            {
+                for (var j = 0; ; j++)
+                {
+                    if (j == needle.Length)
+                    {
+                        return i;
+                    }
+
+                    if (i + j == haystack.Length)
+                    {
+                        return -1;
+                    }
+
+                    if (haystack[i + j] != needle[j])
+                    {
+                        break;
+                    }
+                }
+            }
         }
     }
 }
